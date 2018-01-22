@@ -31,8 +31,6 @@
 }
 
 - (void)time:(NSTimer *)timer {
-//    NSLog(@"collectionView.bounds = %@", NSStringFromCGRect(self.collectionView.bounds));
-//    NSLog(@"collectionView.center %@", NSStringFromCGPoint(self.collectionView.center));
     NSLog(@"%@", NSStringFromCGPoint([self.view convertPoint:self.view.center toView:self.collectionView]));
     self.redView.center = [self.view convertPoint:self.view.center toView:self.collectionView];
 }
