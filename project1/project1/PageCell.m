@@ -1,9 +1,6 @@
 
 #import "PageCell.h"
 
-@interface PageCellLayout : UICollectionViewFlowLayout
-@end
-
 @interface PageCell () <UICollectionViewDataSource,UICollectionViewDelegate>
 @end
 
@@ -12,7 +9,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-        PageCellLayout *layout = [[PageCellLayout alloc] init];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.itemSize = CGSizeMake(60, 60);
 
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
@@ -41,25 +38,19 @@
     if ([self.indexPath isEqual:indexPath]) {
         self.indexPath = nil;
         
-        CGPoint from = CGPointMake(CGRectGetMidX(self.collectionView.bounds), cell.center.y);
-        CGPoint to = cell.center;
-
-        CGPoint m = CGPointMake((from.x+to.x)/2, to.y - 90);
+        NSUInteger duration = 4;
+        cell.transform = CGAffineTransformIdentity;
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+        NSMutableArray<NSNumber *> *values = [NSMutableArray arrayWithCapacity:duration+1];
+        NSMutableArray<NSNumber *> *times = [NSMutableArray arrayWithCapacity:duration+1];
+        for (int i = 0; i <= duration; ++i) {
+            [values addObject:((i % 2) ? @(2) : @(1))];
+            [times addObject:@(i/(duration+0.0))];
+        }
+        animation.values = [NSArray arrayWithArray:values];
+        animation.keyTimes = [NSArray arrayWithArray:times];
         
-        cell.center = to;
-        CAKeyframeAnimation *animation1 = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-        animation1.keyTimes = @[@(0.0),@(0.5),@(1.0)];
-        animation1.values = @[@(from),@(m),@(to)];
-        
-        cell.alpha = 1;
-        CABasicAnimation *animation2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        animation2.fromValue = @(0);
-        animation2.toValue = @(1);
-        
-        CAAnimationGroup *group = [CAAnimationGroup animation];
-        group.animations = @[animation1,animation2];
-        group.duration = 10;
-        [cell.layer addAnimation:group forKey:@"group"];
+        [cell.layer addAnimation:animation forKey:@"scale"];
     }
 }
 
@@ -82,11 +73,3 @@
 
 @end
 
-@implementation PageCellLayout
-
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    NSLog(@"%@", itemIndexPath);
-    return [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
-}
-
-@end
