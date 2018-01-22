@@ -27,6 +27,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
+    self.collectionView.contentOffset = CGPointZero;
     [self.collectionView reloadData];
 }
 
