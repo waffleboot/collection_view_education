@@ -8,6 +8,7 @@
 @interface ViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray<UIColor *> *colors;
+@property (nonatomic, strong) NSArray<NSNumber *> *values;
 @end
 
 @implementation ViewController
@@ -16,10 +17,13 @@
     [super viewDidLoad];
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:8];
+    NSMutableArray *values = [NSMutableArray arrayWithCapacity:8];
     for (int i = 0; i < 8; ++i) {
         [array addObject:[ViewController randomColor]];
+        [values addObject:@(30)];
     }
     self.colors = [NSArray arrayWithArray:array];
+    self.values = values;
 
     CGRect frame = CGRectInset(self.view.bounds, 30, 30);
 
@@ -30,6 +34,7 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [self.collectionView registerClass:[PageCell class] forCellWithReuseIdentifier:@"cell"];
     
@@ -44,22 +49,27 @@
 - (void)click:(UITapGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateRecognized) {
         CGPoint touchPoint = [gestureRecognizer locationInView:self.collectionView];
-        CGRect rect = CGRectMake(touchPoint.x, touchPoint.y, 1, 1);
-        NSArray<UICollectionViewLayoutAttributes *> *array = [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:rect];
-        for (UICollectionViewLayoutAttributes *attributes in array) {
-            if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
-                PageCell *pageCell = (PageCell *) [self.collectionView cellForItemAtIndexPath:attributes.indexPath];
-                touchPoint = [gestureRecognizer locationInView:pageCell];
-                rect = CGRectMake(touchPoint.x, touchPoint.y, 1, 1);
-                
-                NSArray<UICollectionViewLayoutAttributes *> *array = [pageCell.collectionView.collectionViewLayout layoutAttributesForElementsInRect:rect];
-                for (UICollectionViewLayoutAttributes *attributes in array) {
-                    if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
-                        UICollectionViewCell *cell = [pageCell.collectionView cellForItemAtIndexPath:attributes.indexPath];
-                        NSLog(@"cell");
-                    }
-                }
-            }
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchPoint];
+        if (indexPath) {
+
+            NSMutableArray<NSNumber *> *array = [NSMutableArray arrayWithArray:self.values];
+            NSUInteger count = array[indexPath.item].integerValue;
+            array[indexPath.item] = @(count + 1);
+            self.values = array;
+
+            PageCell *pagecell = (PageCell *) [self.collectionView cellForItemAtIndexPath:indexPath];
+            touchPoint = [gestureRecognizer locationInView:pagecell];
+            indexPath  = [pagecell.collectionView indexPathForItemAtPoint:touchPoint];
+            pagecell.count = count + 1;
+            
+//            pagecell.indexPath = [NSIndexPath indexPathForItem:count inSection:0];
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
+            
+            pagecell.indexPath = indexPath;
+            [pagecell.collectionView insertItemsAtIndexPaths:@[indexPath]];
+            [pagecell.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+            
         }
     }
 }
@@ -72,6 +82,7 @@
     PageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.color = [self.colors objectAtIndex:indexPath.item];
     cell.index = indexPath.item;
+    cell.count = self.values[indexPath.item].integerValue;
     return cell;
 }
 
