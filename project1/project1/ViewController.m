@@ -62,8 +62,6 @@
             indexPath  = [pagecell.collectionView indexPathForItemAtPoint:touchPoint];
             pagecell.count = count + 1;
             
-//            pagecell.indexPath = [NSIndexPath indexPathForItem:count inSection:0];
-            
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
             
             pagecell.indexPath = indexPath;
