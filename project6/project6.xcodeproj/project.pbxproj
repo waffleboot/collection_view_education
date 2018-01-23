@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F54FC67E2016CBA4000E2452 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F54FC6712016CB3F000E2452 /* parser.cpp */; };
 		F57D649F2016213800635FA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D649E2016213800635FA6 /* AppDelegate.m */; };
 		F57D64A22016213800635FA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D64A12016213800635FA6 /* ViewController.m */; };
 		F57D64A52016213800635FA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F57D64A32016213800635FA6 /* Main.storyboard */; };
@@ -15,7 +16,22 @@
 		F57D64AD2016213800635FA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D64AC2016213800635FA6 /* main.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F54FC6752016CB94000E2452 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F54FC6712016CB3F000E2452 /* parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		F54FC6772016CB94000E2452 /* parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = parser; sourceTree = BUILT_PRODUCTS_DIR; };
+		F54FC6792016CB94000E2452 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F57D649A2016213700635FA6 /* project6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57D649D2016213800635FA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F57D649E2016213800635FA6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -29,6 +45,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F54FC6742016CB94000E2452 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F57D64972016213700635FA6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,10 +62,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F54FC6782016CB94000E2452 /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				F54FC6792016CB94000E2452 /* main.cpp */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
 		F57D64912016213700635FA6 = {
 			isa = PBXGroup;
 			children = (
 				F57D649C2016213700635FA6 /* project6 */,
+				F54FC6782016CB94000E2452 /* parser */,
 				F57D649B2016213700635FA6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				F57D649A2016213700635FA6 /* project6.app */,
+				F54FC6772016CB94000E2452 /* parser */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +91,7 @@
 		F57D649C2016213700635FA6 /* project6 */ = {
 			isa = PBXGroup;
 			children = (
+				F54FC6712016CB3F000E2452 /* parser.cpp */,
 				F57D649D2016213800635FA6 /* AppDelegate.h */,
 				F57D649E2016213800635FA6 /* AppDelegate.m */,
 				F57D64A02016213800635FA6 /* ViewController.h */,
@@ -74,6 +108,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F54FC6762016CB94000E2452 /* parser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F54FC67B2016CB94000E2452 /* Build configuration list for PBXNativeTarget "parser" */;
+			buildPhases = (
+				F54FC6732016CB94000E2452 /* Sources */,
+				F54FC6742016CB94000E2452 /* Frameworks */,
+				F54FC6752016CB94000E2452 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = parser;
+			productName = parser;
+			productReference = F54FC6772016CB94000E2452 /* parser */;
+			productType = "com.apple.product-type.tool";
+		};
 		F57D64992016213700635FA6 /* project6 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F57D64B02016213800635FA6 /* Build configuration list for PBXNativeTarget "project6" */;
@@ -100,6 +151,10 @@
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = yangand;
 				TargetAttributes = {
+					F54FC6762016CB94000E2452 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 					F57D64992016213700635FA6 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
@@ -120,6 +175,7 @@
 			projectRoot = "";
 			targets = (
 				F57D64992016213700635FA6 /* project6 */,
+				F54FC6762016CB94000E2452 /* parser */,
 			);
 		};
 /* End PBXProject section */
@@ -138,6 +194,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F54FC6732016CB94000E2452 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F54FC67E2016CBA4000E2452 /* parser.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F57D64962016213700635FA6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +234,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F54FC67C2016CB94000E2452 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y4L3S6MKX;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F54FC67D2016CB94000E2452 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Y4L3S6MKX;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		F57D64AE2016213800635FA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -305,6 +393,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F54FC67B2016CB94000E2452 /* Build configuration list for PBXNativeTarget "parser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F54FC67C2016CB94000E2452 /* Debug */,
+				F54FC67D2016CB94000E2452 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F57D64952016213700635FA6 /* Build configuration list for PBXProject "project6" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,9 +1,12 @@
 
 #import "ViewController.h"
 
+@interface MyLayout : UICollectionViewFlowLayout
+@end
+
 @interface ViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UIView *redView;
+@property (nonatomic, assign) NSUInteger count;
 @end
 
 @implementation ViewController
@@ -11,10 +14,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 3)];
-    self.redView.backgroundColor = UIColor.redColor;
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    UICollectionViewFlowLayout *layout = [[MyLayout alloc] init];
     layout.itemSize = CGSizeMake(60, 60);
 
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
@@ -23,26 +23,45 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-    [self.collectionView addSubview:self.redView];
-    
     [self.view addSubview:self.collectionView];
     
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(time:) userInfo:nil repeats:YES];
+    UITapGestureRecognizer *r = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
+    [self.view addGestureRecognizer:r];
 }
 
-- (void)time:(NSTimer *)timer {
-    NSLog(@"%@", NSStringFromCGPoint([self.view convertPoint:self.view.center toView:self.collectionView]));
-    self.redView.center = [self.view convertPoint:self.view.center toView:self.collectionView];
+- (void)click:(UITapGestureRecognizer *)r {
+//    [self.collectionView performBatchUpdates:^{
+        self.count += 1;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.count - 1 inSection:0];
+        [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+//    } completion:^(BOOL finished) {
+    
+//    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 80;
+    return self.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+//    NSLog(@"%@", cell.layer.animationKeys);
     cell.backgroundColor = UIColor.whiteColor;
     return cell;
+}
+
+@end
+
+@implementation MyLayout
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [super layoutAttributesForItemAtIndexPath:indexPath];
+}
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    UICollectionViewLayoutAttributes *a = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    a.center = self.collectionView.center;
+    return a;
 }
 
 @end
